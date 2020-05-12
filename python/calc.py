@@ -7,4 +7,14 @@ class Calc:
         return a + b
 
     def div(self, a, b):
-        return a / b
+        if b != 0:
+            return a / b
+        else:
+            return 'ZeroDivisionError'
+
+
+    def multiplication(self, a, b):
+        return a * b
+
+    def subtraction(self, a, b):
+        return a - b

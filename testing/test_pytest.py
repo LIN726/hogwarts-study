@@ -6,20 +6,35 @@ from python.calc import Calc
 
 
 class TestCalc:
+    # @pytest.mark.parametrize()
     def setup(self):
         self.calc = Calc()
 
-    def test_add_1(self):
-        result = self.calc.add(1, 2)
-        print(result)
-        assert 3 == result
+    @pytest.mark.parametrize("a,b,expect",
+                             [
+                                 (0, 0, 0),
+                                 (1, 2, 3),
+                                 (-1, 1, 0)])
+    def test_add(self, a, b, expect):
+        result = self.calc.add(a, b)
+        assert expect == result
 
-    def test_div(self):
-        # self.calc = Calc()
-        result = self.calc.div(2,2)
-        assert 1 == result
+    @pytest.mark.parametrize("a,b,expect",
+                             [
+                                 (0, 1, 0),
+                                 (2, 1, 2),
+                                 (-1, 1, -1),
+                                 (2, 0, 'ZeroDivisionError'),
+                                 (2,3,2/3)
+                             ])
+    def test_div(self, a, b, expect):
+        result = self.calc.div(a, b)
+        assert expect == result
 
-pytest.main(['-vs','test_pytest.py::TestCalc::test_div'])
+    def test_multiplication(self):
+        result = self.calc.multiplication(2, 3)
+        assert result == 6
 
-# if __name__ == '__main__':
-#     pytest.main(['-vs','test_pytest.py::TestCalc::test_div'])
+    def test_subtraction(self):
+        result = self.calc.subtraction(2, 4)
+        assert result == -2
