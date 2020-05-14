@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import sys
+
 import pytest
 
 from python.calc import Calc
@@ -31,9 +33,12 @@ class TestCalc:
         result = self.calc.div(a, b)
         assert expect == result
 
-    def test_multiplication(self):
-        result = self.calc.multiplication(2, 3)
-        assert result == 6
+    @pytest.mark.skipif(sys.version_info < (3,8), reason= '版本小于3.8不跑')
+    @pytest.mark.parametrize('a', [1,2,3,4,6,8])
+    @pytest.mark.parametrize('b',[48,24,16,12])
+    def test_multiplication(self,a,b):
+        result = self.calc.multiplication(a, b)
+        assert result == 48
 
     def test_subtraction(self):
         result = self.calc.subtraction(2, 4)
